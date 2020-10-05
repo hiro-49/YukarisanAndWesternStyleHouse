@@ -12,13 +12,13 @@ public class PuzzleManager : MonoBehaviour
     CameraController cameraController;
     GameObject stage;
     StageController stageController;
-    GameObject yukarisan;
+    public GameObject yukarisan;
 
     // Start is called before the first frame update
     void Start()
     {
         //ステージ配置
-        stage = Instantiate(DummmyStage, new Vector3(0f, 0f, 10f), Quaternion.identity);
+        stage = Instantiate(DummmyStage, Vector3.zero, Quaternion.identity);
         stageController = stage.GetComponent<StageController>();
         //ゆかりさん配置
         Transform start = stage.transform.Find("Start");

@@ -7,15 +7,16 @@ public class StageController : MonoBehaviour
     public float stageHeight;
     public float stageWidth;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool isEnergized { get; private set; }
+
+    public void Energized()
     {
-        
+        isEnergized = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Block()
     {
-        
+        isEnergized = false;
     }
+
 }

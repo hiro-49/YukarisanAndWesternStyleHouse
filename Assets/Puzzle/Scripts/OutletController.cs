@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OutletController : BaseGimmickBehaviour
+public class OutletController : MonoBehaviour
 {
-    //ONになった時
+    public bool IsConnecting { get; private set; }
 
-    //OFFになった時
+    public void Connect()
+    {
+        IsConnecting = true;
+    }
 
-    //ON/OFFの切り替え
+    public void Disconnect()
+    {
+        IsConnecting = false;
+    }
 }

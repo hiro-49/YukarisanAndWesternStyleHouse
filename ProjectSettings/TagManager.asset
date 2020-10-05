@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Outlet
+  - Plug
+  - Breaker
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -13,12 +17,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Charactor
   - Floor
   - Scaffold
-  - 
-  - 
-  - 
+  - Gimmick
+  - Plug
+  - GroundCheck
   - 
   - 
   - 
@@ -40,4 +44,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 432104099
+    locked: 0
+  - name: GimmickItem
+    uniqueID: 3574400935
+    locked: 0
+  - name: Charactor
+    uniqueID: 1863146577
+    locked: 0
+  - name: Plug
+    uniqueID: 2234372693
     locked: 0

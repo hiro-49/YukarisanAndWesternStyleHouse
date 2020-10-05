@@ -4,16 +4,96 @@ using UnityEngine;
 
 public class PlugController : BaseGimmickBehaviour
 {
-    //ゆかりさんが持っているか
-    bool doesYukariHave;
-    //繋がっているコンセント
-    GameObject outlet;
+    public GameObject targetObject; //対応するギミック
+    bool doesYukariHave;    //ゆかりさんが持っているか
+    bool isConnect;
+    GameObject outlet;  //繋がっているコンセント
+    string outlet_tag = "Outlet";
+    GameObject yukarisan;   //ゆかりさん
+    Rigidbody2D rb;
+    BaseGimmickBehaviour targetController;
 
+    private void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        targetController = targetObject.GetComponent<BaseGimmickBehaviour>();
+    }
+
+    private void Update()
+    {
+        if (doesYukariHave) FollowYukarisan();
+        if (isConnect) beConnecting();
+    }
 
     //ゆかりさんに掴まれている時、追従する
-    //plugPivotから一定距離で自動的に落ちる
+    //plugPivotから一定距離で自動的に落ちる (未実装
+    void FollowYukarisan()
+    {
+        transform.position = yukarisan.transform.position;
+        rb.velocity = Vector2.zero;
+    }
+
+    //コンセントに刺さっている間
+    void beConnecting()
+    {
+        transform.position = outlet.transform.position;
+        rb.velocity = Vector2.zero;
+    }
 
     //コンセントに刺さった時
+    public void Connect()
+    {
+        isConnect = true;
+        targetController.TurnOn();
+    }
 
     //コンセントから外れた時
+    public void DisConnect()
+    {
+        targetController.TurnOff();
+        outlet = null;
+        isConnect = false;
+    }
+
+    public override void Toggle()
+    {
+        Debug.Log("Plug_Toggle");
+        if (powerSwitchState == PowerSwitchState.ON)
+        {
+            powerSwitchState = PowerSwitchState.OFF;
+            TurnOff();
+        }
+        else
+        {
+            powerSwitchState = PowerSwitchState.ON;
+            TurnOn();
+        }
+    }
+
+    public override void TurnOff()
+    {
+        doesYukariHave = false;
+    }
+
+    public override void TurnOn()
+    {
+        doesYukariHave = true;
+        yukarisan = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>().yukarisan;
+        if (isConnect) DisConnect();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //ゆかりさんが持っていないプラグがコンセントの近くにあって、接続していない時
+        if(collision.gameObject.tag == outlet_tag && powerSwitchState.Equals(PowerSwitchState.OFF) && outlet == null)
+        {
+            OutletController outletController = collision.gameObject.GetComponent<OutletController>();
+            //コンセントが空いているなら
+            if (!outletController.IsConnecting)
+            {
+                outlet = collision.gameObject;
+                Connect();
+            }
+        }
+    }
 }

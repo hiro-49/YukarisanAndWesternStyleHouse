@@ -2,11 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakerController : MonoBehaviour
+public class BreakerController : BaseGimmickBehaviour
 {
-    //ONになった時
+    public Sprite breaker_up;
+    public Sprite breaker_down;
 
-    //OFFになった時
+    SpriteRenderer spriteRenderer;
 
-    //ON/OFFの切り替え
+    private void Start()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+    }
+
+    public override void Toggle()
+    {
+        if (powerSwitchState == PowerSwitchState.ON)
+        {
+            powerSwitchState = PowerSwitchState.OFF;
+            TurnOff();
+        }
+        else
+        {
+            powerSwitchState = PowerSwitchState.ON;
+            TurnOn();
+        }
+    }
+
+    public override void TurnOff()
+    {
+        spriteRenderer.sprite = breaker_down;
+        transform.parent.gameObject.GetComponent<StageController>().Energized();
+    }
+
+    public override void TurnOn()
+    {
+        spriteRenderer.sprite = breaker_up;
+        transform.parent.gameObject.GetComponent<StageController>().Block();
+    }
 }

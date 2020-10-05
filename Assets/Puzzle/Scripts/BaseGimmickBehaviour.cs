@@ -8,12 +8,13 @@ public enum PowerSwitchState
     OFF
 }
 
-public class BaseGimmickBehaviour : MonoBehaviour
+abstract public class BaseGimmickBehaviour : MonoBehaviour
 {
-    PowerSwitchState powerSwitchState = PowerSwitchState.OFF;
+    protected PowerSwitchState powerSwitchState = PowerSwitchState.OFF;
     //ONになった時
-
+    abstract public void TurnOn();
     //OFFになった時
-
+    abstract public void TurnOff();
     //ON/OFFの切り替え
+    abstract public void Toggle();
 }
