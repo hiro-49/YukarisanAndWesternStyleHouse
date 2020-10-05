@@ -168,7 +168,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 100
   m_Material: {fileID: 0}
@@ -198,7 +198,7 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 56.29187, y: 107.383606}
   m_EdgeRadius: 0
@@ -215,6 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroundCheckObj: {fileID: 312665807806168831}
-  jumping_velocity: 500
+  jumping_velocity: 600
   moving_power: 1000
   velocity_max: 400

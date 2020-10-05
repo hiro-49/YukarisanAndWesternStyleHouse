@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlugController : BaseGimmickBehaviour
 {
     public GameObject targetObject; //対応するギミック
+    public float codeRange;
+
     bool doesYukariHave;    //ゆかりさんが持っているか
     bool isConnect;
     GameObject outlet;  //繋がっているコンセント
@@ -12,11 +14,13 @@ public class PlugController : BaseGimmickBehaviour
     GameObject yukarisan;   //ゆかりさん
     Rigidbody2D rb;
     BaseGimmickBehaviour targetController;
+    Vector3 plugPivot;  //プラグの始点
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         targetController = targetObject.GetComponent<BaseGimmickBehaviour>();
+        plugPivot = transform.parent.position;
     }
 
     private void Update()
@@ -31,6 +35,10 @@ public class PlugController : BaseGimmickBehaviour
     {
         transform.position = yukarisan.transform.position;
         rb.velocity = Vector2.zero;
+        if((transform.position - plugPivot).sqrMagnitude > codeRange * codeRange)
+        {
+            TurnOff();
+        }
     }
 
     //コンセントに刺さっている間

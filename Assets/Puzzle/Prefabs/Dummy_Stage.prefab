@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 4462932106889487475}
+  codeRange: 1000
 --- !u!1 &4462932107273479078
 GameObject:
   m_ObjectHideFlags: 0
