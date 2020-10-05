@@ -65,7 +65,6 @@ public class PlugController : BaseGimmickBehaviour
 
     public override void Toggle()
     {
-        Debug.Log("Plug_Toggle");
         if (powerSwitchState == PowerSwitchState.ON)
         {
             powerSwitchState = PowerSwitchState.OFF;

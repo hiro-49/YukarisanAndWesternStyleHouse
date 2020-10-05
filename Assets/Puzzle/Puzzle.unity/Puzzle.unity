@@ -164,8 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2117b0518c0c44bd98436f71ecfd8573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DummmyStage: {fileID: 4462932108625601061, guid: 74b9a315485fd41418c01b4614402b8b,
-    type: 3}
+  DummmyStages:
+  - {fileID: 4462932108625601061, guid: 74b9a315485fd41418c01b4614402b8b, type: 3}
+  - {fileID: 4462932108625601061, guid: 74b9a315485fd41418c01b4614402b8b, type: 3}
+  - {fileID: 4462932108625601061, guid: 74b9a315485fd41418c01b4614402b8b, type: 3}
   Yukarisan: {fileID: 1773811406080465791, guid: 21223fe1befa545e5aaa06006c29134c,
     type: 3}
   camera: {fileID: 1472999697}

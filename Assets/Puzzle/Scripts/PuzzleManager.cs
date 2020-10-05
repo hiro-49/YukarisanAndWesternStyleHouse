@@ -5,7 +5,7 @@ using UnityEngine;
 public class PuzzleManager : MonoBehaviour
 {
     //プレハブ
-    public GameObject DummmyStage;
+    public GameObject[] DummmyStages;
     public GameObject Yukarisan;
 
     public GameObject camera;
@@ -18,8 +18,9 @@ public class PuzzleManager : MonoBehaviour
     void Start()
     {
         //ステージ配置
-        stage = Instantiate(DummmyStage, Vector3.zero, Quaternion.identity);
+        stage = Instantiate(DummmyStages[GameManager.Instance.CurrentStageNum], Vector3.zero, Quaternion.identity);
         stageController = stage.GetComponent<StageController>();
+        Debug.Log("stageNum:" + GameManager.Instance.CurrentStageNum);
         //ゆかりさん配置
         Transform start = stage.transform.Find("Start");
         yukarisan = Instantiate(Yukarisan, start.position, Quaternion.identity);
