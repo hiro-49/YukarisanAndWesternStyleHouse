@@ -109,6 +109,7 @@ public class YukarisanController : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<GoalController>().IsOpen)
             {
+                GameManager.Instance.SaveClearStage();
                 GameManager.Instance.IncrementStageNum();
                 GameManager.Instance.LoadPuzzleScene();
             }
