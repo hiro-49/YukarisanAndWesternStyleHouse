@@ -349,6 +349,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConversationCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8430084050965098398, guid: 766528c142f8e45b1b56a445f413639c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8430084050965098401, guid: 766528c142f8e45b1b56a445f413639c,
         type: 3}
       propertyPath: m_Camera

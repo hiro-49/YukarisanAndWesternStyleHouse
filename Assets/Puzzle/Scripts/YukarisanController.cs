@@ -12,6 +12,13 @@ public class YukarisanController : MonoBehaviour
     Rigidbody2D rb;
     GroundCheck groundCheck;
 
+    //アニメーション管理変数
+    Animator animator;
+    bool anim_jump;
+    bool anim_move;
+
+    bool isGround;
+
     const string goal_tag = "Goal";
 
     // Start is called before the first frame update
@@ -19,12 +26,32 @@ public class YukarisanController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         groundCheck = GroundCheckObj.GetComponent<GroundCheck>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Idle();
         Move();
+        SetAnimationPrameters();
+        //Debug.Log("Update");
+    }
+
+    private void FixedUpdate()
+    {
+        isGround = groundCheck.IsGround;
+        anim_jump = !isGround;
+        groundCheck.UpdateByYukarisan();
+        //Debug.Log("Fixed");
+    }
+
+    void Idle()
+    {
+        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        {
+            anim_move = false;
+        }
     }
 
     void Move()
@@ -41,7 +68,7 @@ public class YukarisanController : MonoBehaviour
             }
 
             //速度制限をつけた移動
-            if (groundCheck.IsGround)
+            if (isGround)
             {
                 if(rb.velocity.magnitude < velocity_max)
                 {
@@ -55,6 +82,12 @@ public class YukarisanController : MonoBehaviour
                     rb.AddForce(new Vector2(moving_power, 0f));
                 }
             }
+
+            //向いてる方向を変更
+            transform.localScale = new Vector3(0.4f, 0.4f, 1f);
+
+            //アニメーションをmoveに
+            anim_move = true;
         }
         //左
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -68,7 +101,7 @@ public class YukarisanController : MonoBehaviour
             }
 
             //速度制限をつけた移動
-            if (groundCheck.IsGround)
+            if (isGround)
             {
                 if (rb.velocity.magnitude < velocity_max)
                 {
@@ -82,9 +115,16 @@ public class YukarisanController : MonoBehaviour
                     rb.AddForce(new Vector2(-moving_power, 0f));
                 }
             }
+
+            //向いてる方向を変更
+            transform.localScale = new Vector3(-0.4f, 0.4f, 1f);
+
+            //アニメーションをmoveに
+            anim_move = true;
         }
+
         //上キーが押され、かつ接地している時
-        if (Input.GetKey(KeyCode.UpArrow) && groundCheck.IsGround && rb.velocity.y < 50f)
+        if (Input.GetKey(KeyCode.UpArrow) && isGround && rb.velocity.y < 50f)
         {
             Vector2 velocity = rb.velocity;
             velocity.y = jumping_velocity;
@@ -114,6 +154,18 @@ public class YukarisanController : MonoBehaviour
                 GameManager.Instance.LoadPuzzleScene();
             }
         }
+    }
+
+    void SetAnimationPrameters()
+    {
+        animator.SetBool("jump", anim_jump);
+        animator.SetBool("move", anim_move);
+    }
+
+    public void NoticeIsGround()
+    {
+        isGround = true;
+        //SetAnimationPrameters();
     }
 
 }

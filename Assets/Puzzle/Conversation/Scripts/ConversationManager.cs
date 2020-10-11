@@ -64,6 +64,7 @@ public class ConversationManager : MonoBehaviour
             }
 
             //名前と会話表示
+            //デフォルト以外デバッグしてないよ
             switch (talkData[i][Contents])
             {
                 case "/dispChar":
