@@ -12,31 +12,30 @@ public class BreakerController : BaseGimmickBehaviour
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        isEnergized = true; //ブレーカーは部屋の通電状態から独立して動作する
     }
 
     public override void Toggle()
     {
         if (powerSwitchState == PowerSwitchState.ON)
         {
-            powerSwitchState = PowerSwitchState.OFF;
-            TurnOff();
+            TurnOff(true);
         }
         else
         {
-            powerSwitchState = PowerSwitchState.ON;
-            TurnOn();
+            TurnOn(true);
         }
     }
 
-    public override void TurnOff()
+    protected override void EndOperation()
     {
         spriteRenderer.sprite = breaker_down;
-        transform.parent.gameObject.GetComponent<StageController>().Energized();
+        transform.parent.gameObject.GetComponent<StageController>().Block();
     }
 
-    public override void TurnOn()
+    protected override void StartOperation()
     {
         spriteRenderer.sprite = breaker_up;
-        transform.parent.gameObject.GetComponent<StageController>().Block();
+        transform.parent.gameObject.GetComponent<StageController>().Energized();
     }
 }

@@ -57,3 +57,6 @@ TagManager:
   - name: Plug
     uniqueID: 2234372693
     locked: 0
+  - name: Blind
+    uniqueID: 3047360723
+    locked: 0

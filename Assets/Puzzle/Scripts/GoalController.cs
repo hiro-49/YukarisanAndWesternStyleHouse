@@ -10,12 +10,12 @@ public class GoalController : BaseGimmickBehaviour
     {
     }
 
-    public override void TurnOff()
+    protected override void EndOperation()
     {
         IsOpen = false;
     }
 
-    public override void TurnOn()
+    protected override void StartOperation()
     {
         IsOpen = true;
     }

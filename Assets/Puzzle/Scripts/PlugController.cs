@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlugController : BaseGimmickBehaviour
 {
     public GameObject targetObject; //対応するギミック
+    public GameObject codePrefab;
     public float codeRange;
 
     bool doesYukariHave;    //ゆかりさんが持っているか
@@ -21,12 +22,46 @@ public class PlugController : BaseGimmickBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         targetController = targetObject.GetComponent<BaseGimmickBehaviour>();
         plugPivot = transform.parent.position;
+        isEnergized = true; //プラグは部屋の通電状態から独立して動作する
+        CreateCode();
     }
 
     private void Update()
     {
         if (doesYukariHave) FollowYukarisan();
         if (isConnect) beConnecting();
+    }
+
+    //コードをつくる
+    void CreateCode()
+    {
+        List<GameObject> codeJoints = new List<GameObject>();
+        float length = 0f;
+        while(length < codeRange)
+        {
+            length += 200f;
+            codeJoints.Add(Instantiate(codePrefab, gameObject.transform.position, Quaternion.identity));
+        }
+
+        //pivotにjointを連結
+        transform.parent.gameObject.GetComponent<SpringJoint2D>().connectedBody = codeJoints[0].GetComponent<Rigidbody2D>();
+        //joint同士の連結
+        for(int i=0;i < codeJoints.Count; i++)
+        {
+            SpringJoint2D spring = codeJoints[i].GetComponent<SpringJoint2D>();
+            //連結するオブジェクトを指定
+            //最後のjointにはプラグを連結
+            if(i == codeJoints.Count - 1)
+            {
+                spring.connectedBody = gameObject.GetComponent<Rigidbody2D>();
+            }
+            else
+            {
+                spring.connectedBody = codeJoints[i + 1].GetComponent<Rigidbody2D>();
+            }
+            //親子関係を設定
+            codeJoints[i].transform.parent = transform.parent; 
+        }
     }
 
     //ゆかりさんに掴まれている時、追従する
@@ -37,7 +72,7 @@ public class PlugController : BaseGimmickBehaviour
         rb.velocity = Vector2.zero;
         if((transform.position - plugPivot).sqrMagnitude > codeRange * codeRange)
         {
-            TurnOff();
+            TurnOff(true);
         }
     }
 
@@ -52,13 +87,13 @@ public class PlugController : BaseGimmickBehaviour
     public void Connect()
     {
         isConnect = true;
-        targetController.TurnOn();
+        targetController.TurnOn(true);
     }
 
     //コンセントから外れた時
     public void DisConnect()
     {
-        targetController.TurnOff();
+        targetController.TurnOff(true);
         outlet = null;
         isConnect = false;
     }
@@ -67,22 +102,20 @@ public class PlugController : BaseGimmickBehaviour
     {
         if (powerSwitchState == PowerSwitchState.ON)
         {
-            powerSwitchState = PowerSwitchState.OFF;
-            TurnOff();
+            TurnOff(true);
         }
         else
         {
-            powerSwitchState = PowerSwitchState.ON;
-            TurnOn();
+            TurnOn(true);
         }
     }
 
-    public override void TurnOff()
+    protected override void EndOperation()
     {
         doesYukariHave = false;
     }
 
-    public override void TurnOn()
+    protected override void StartOperation()
     {
         doesYukariHave = true;
         yukarisan = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>().yukarisan;
@@ -95,7 +128,7 @@ public class PlugController : BaseGimmickBehaviour
         if(collision.gameObject.tag == outlet_tag && powerSwitchState.Equals(PowerSwitchState.OFF) && outlet == null)
         {
             OutletController outletController = collision.gameObject.GetComponent<OutletController>();
-            //コンセントが空いているなら
+            //コンセントが空いているなら接続
             if (!outletController.IsConnecting)
             {
                 outlet = collision.gameObject;

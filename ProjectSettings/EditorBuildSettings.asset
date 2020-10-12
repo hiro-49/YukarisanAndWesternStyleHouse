@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Title/Title.unity/Title.unity
     guid: d1be58c9d59f94c4da23903cb6118b47
   - enabled: 1
-    path: Assets/Puzzle/Puzzle.unity/Puzzle.unity
+    path: Assets/Puzzle/Scripts/Puzzle.unity
     guid: 7624ede3dbd884e0c81725f48b3adaa7
   m_configObjects: {}
