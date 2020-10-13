@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     public int CurrentStageNum { get; private set; }   //現在ステージ数
+    public string nextStageKey  = "1-1";
     public int StageMax { get; } = 3;
 
     //クリア済みフラグ
@@ -35,17 +36,18 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     //現在ステージを次のステージへ
-    public void IncrementStageNum()
-    {
-        CurrentStageNum++;
-        if (CurrentStageNum >= StageMax) CurrentStageNum = StageMax - 1;
-    }
+    //public void IncrementStageNum()
+    //{
+    //    CurrentStageNum++;
+    //    if (CurrentStageNum >= StageMax) CurrentStageNum = StageMax - 1;
+    //}
 
     //ステージ選択
-    public void StageSelect(int number)
+    public void StageSelect(string next)
     {
-        CurrentStageNum = number;
-        if (CurrentStageNum >= StageMax) CurrentStageNum = 0;
+        //CurrentStageNum = number;
+        //if (CurrentStageNum >= StageMax) CurrentStageNum = 0;
+        nextStageKey = next;
     }
 
     public void LoadPuzzleScene()

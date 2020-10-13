@@ -28,7 +28,7 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickNewGame()
     {
-        GameManager.Instance.StageSelect(0);
+        GameManager.Instance.nextStageKey = "1-1";
         GameManager.Instance.LoadPuzzleScene();
     }
 
@@ -40,9 +40,9 @@ public class TitleManager : MonoBehaviour
         stageSelect.transform.Find("StageNum_0").gameObject.GetComponent<Button>().Select();
     }
 
-    public void OnClickStageNum(int number)
+    public void OnClickStageNum(string stageKey)
     {
-        GameManager.Instance.StageSelect(number);
+        GameManager.Instance.StageSelect(stageKey);
         GameManager.Instance.LoadPuzzleScene();
     }
 

@@ -30,12 +30,12 @@ public class BreakerController : BaseGimmickBehaviour
     protected override void EndOperation()
     {
         spriteRenderer.sprite = breaker_down;
-        transform.parent.gameObject.GetComponent<StageController>().Block();
+        StageController.Instance.Block();
     }
 
     protected override void StartOperation()
     {
         spriteRenderer.sprite = breaker_up;
-        transform.parent.gameObject.GetComponent<StageController>().Energized();
+        StageController.Instance.Energized();
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Plug
   - Breaker
   - Goal
+  - Light
+  - EventObject
   layers:
   - Default
   - TransparentFX
@@ -23,9 +25,9 @@ TagManager:
   - Gimmick
   - Plug
   - GroundCheck
-  - 
-  - 
-  - 
+  - Ghost
+  - Obstacle
+  - Code
   - 
   - 
   - 
@@ -56,6 +58,9 @@ TagManager:
     locked: 0
   - name: Plug
     uniqueID: 2234372693
+    locked: 0
+  - name: Code
+    uniqueID: 1654077505
     locked: 0
   - name: Blind
     uniqueID: 3047360723

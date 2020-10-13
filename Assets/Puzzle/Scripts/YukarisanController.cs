@@ -32,8 +32,11 @@ public class YukarisanController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Idle();
-        Move();
+        if (!StageController.Instance.isTimeStop)
+        {
+            Idle();
+            Move();
+        }
         SetAnimationPrameters();
         //Debug.Log("Update");
     }
@@ -149,8 +152,7 @@ public class YukarisanController : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<GoalController>().IsOpen)
             {
-                GameManager.Instance.SaveClearStage();
-                GameManager.Instance.IncrementStageNum();
+                //GameManager.Instance.SaveClearStage();
                 GameManager.Instance.LoadPuzzleScene();
             }
         }

@@ -100,14 +100,14 @@ public class ConversationManager : MonoBehaviour
     }
 
     //会話を開始する
-    public void StartConversation(List<string[]> data)
+    public IEnumerator StartConversation(List<string[]> data)
     {
         //初期化
         gameObject.SetActive(true);
         talkData = data;
         rightCharacter.GetComponent<Image>().enabled = false;
         leftCharacter.GetComponent<Image>().enabled = false;
-        StartCoroutine(TalkCoroutine());
+        yield return StartCoroutine(TalkCoroutine());
     }
 
 }

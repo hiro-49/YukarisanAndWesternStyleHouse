@@ -13,7 +13,7 @@ public class TestManager : MonoBehaviour
         cm = conversationCanvas.GetComponent<ConversationManager>();
         string csvFileName = "DummyScenario";
         List<string[]> talkData = MyCSVReader.LoadCSV(csvFileName);
-        cm.StartConversation(talkData);
+        StartCoroutine(cm.StartConversation(talkData));
     }
 
         
