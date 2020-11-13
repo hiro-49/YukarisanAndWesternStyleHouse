@@ -45,22 +45,22 @@ public class StageController : MonoBehaviour
 
     public float stageHeight;
     public float stageWidth;
-    public GameObject[] gimmicks;
+    //public GameObject[] gimmicks;
     public GameObject conversationCanvas;
 
     public bool isEnergized { get; private set; }
     public bool isTimeStop = true;
 
-    List<BaseGimmickBehaviour> gimmickBehaviours = new List<BaseGimmickBehaviour>();    //ブレーカーの管理下に置かれるオブジェクトをインスペクターで登録する
+    //List<BaseGimmickBehaviour> gimmickBehaviours = new List<BaseGimmickBehaviour>();    //ブレーカーの管理下に置かれるオブジェクトをインスペクターで登録する
     ConversationManager cm;
 
     private IEnumerator Start()
     {
         cm = conversationCanvas.GetComponent<ConversationManager>();
-        foreach(GameObject obj in gimmicks)
-        {
-            gimmickBehaviours.Add(obj.GetComponent<BaseGimmickBehaviour>());
-        }
+        //foreach(GameObject obj in gimmicks)
+        //{
+        //    gimmickBehaviours.Add(obj.GetComponent<BaseGimmickBehaviour>());
+        //}
 
         yield return new WaitForSeconds(1f);
         //初期化処理がおわったら時間を動かす
@@ -71,19 +71,19 @@ public class StageController : MonoBehaviour
     {
         isEnergized = true;
         Debug.Log("Energized");
-        foreach(BaseGimmickBehaviour behaviour in gimmickBehaviours)
-        {
-            behaviour.Energized();
-        }
+        //foreach(BaseGimmickBehaviour behaviour in gimmickBehaviours)
+        //{
+        //    behaviour.Energized();
+        //}
     }
 
     public void Block()
     {
         isEnergized = false;
-        foreach(BaseGimmickBehaviour behaviour in gimmickBehaviours)
-        {
-            behaviour.Blocked();
-        }
+        //foreach(BaseGimmickBehaviour behaviour in gimmickBehaviours)
+        //{
+        //    behaviour.Blocked();
+        //}
     }
 
 

@@ -16,11 +16,11 @@ public class TitleManager : MonoBehaviour
         //ステージ選択画面は初期状態で隠しておく
         stageSelect = canvas.transform.Find("StageSelect").gameObject;
             //未クリアステージは選択不可に
-        for(int i = 0; i < GameManager.Instance.StageMax; i++)
-        {
-            string buttonName = "StageNum_" + i.ToString();
-            stageSelect.transform.Find(buttonName).gameObject.SetActive(GameManager.Instance.data.clearedStage[i]);
-        }
+        //for(int i = 0; i < GameManager.Instance.StageMax; i++)
+        //{
+        //    string buttonName = "StageNum_" + i.ToString();
+        //    stageSelect.transform.Find(buttonName).gameObject.SetActive(GameManager.Instance.data.clearedStage[i]);
+        //}
         stageSelect.SetActive(false);
         //NewGameを選択状態にしておく
         gameSelect.transform.Find("NewGame").gameObject.GetComponent<Button>().Select();
@@ -28,8 +28,8 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickNewGame()
     {
-        GameManager.Instance.nextStageKey = "1-1";
-        GameManager.Instance.LoadPuzzleScene();
+        //GameManager.Instance.nextStageKey = "1-1";
+        GameManager.Instance.LoadPuzzleScene("1-1");
     }
 
     public void OnClickLoadGame()
@@ -42,8 +42,8 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickStageNum(string stageKey)
     {
-        GameManager.Instance.StageSelect(stageKey);
-        GameManager.Instance.LoadPuzzleScene();
+        //GameManager.Instance.StageSelect(stageKey);
+        GameManager.Instance.LoadPuzzleScene(stageKey);
     }
 
     public void OnClickBack()

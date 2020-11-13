@@ -7,5 +7,5 @@ public class StageConnectionElement
 {
     public string key;
     public GameObject stage;
-    public string nextStageKey;
+    //public string nextStageKey;
 }

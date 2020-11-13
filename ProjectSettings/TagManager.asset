@@ -10,6 +10,10 @@ TagManager:
   - Goal
   - Light
   - EventObject
+  - Floor
+  - Wall
+  - Box
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -28,7 +32,7 @@ TagManager:
   - Ghost
   - Obstacle
   - Code
-  - 
+  - Box
   - 
   - 
   - 
@@ -50,17 +54,26 @@ TagManager:
   - name: BackGround
     uniqueID: 432104099
     locked: 0
+  - name: Scaffold
+    uniqueID: 1637570973
+    locked: 0
+  - name: Outlet
+    uniqueID: 1982980837
+    locked: 0
+  - name: ConnectedPlug
+    uniqueID: 2000444163
+    locked: 0
+  - name: Code
+    uniqueID: 1654077505
+    locked: 0
   - name: GimmickItem
     uniqueID: 3574400935
-    locked: 0
-  - name: Charactor
-    uniqueID: 1863146577
     locked: 0
   - name: Plug
     uniqueID: 2234372693
     locked: 0
-  - name: Code
-    uniqueID: 1654077505
+  - name: Charactor
+    uniqueID: 1863146577
     locked: 0
   - name: Blind
     uniqueID: 3047360723

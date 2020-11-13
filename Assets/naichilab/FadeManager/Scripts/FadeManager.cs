@@ -116,6 +116,7 @@ public class FadeManager : SingletonBehaviour<FadeManager>
 	/// <param name='interval'>暗転にかかる時間(秒)</param>
 	public void LoadScene (string scene, float interval)
 	{
+        if (isFading) return;
 		StartCoroutine (TransScene (scene, interval));
 	}
 

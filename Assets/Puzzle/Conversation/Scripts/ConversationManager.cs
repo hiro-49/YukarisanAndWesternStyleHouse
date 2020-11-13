@@ -76,6 +76,7 @@ public class ConversationManager : MonoBehaviour
                 default:
                     nameText.text = talkData[i][DispName];
                     talkText.text = talkData[i][Contents];
+                    Debug.Log(talkData[i][Contents]);
                     break;
             }
             Resources.UnloadUnusedAssets();

@@ -6,14 +6,16 @@ using System.IO;
 //csvを読み込んでList<string[]>の型で返す
 public static class MyCSVReader
 {
-    static string path = "Assets/Common/Scenario/";
+    static string path = Application.streamingAssetsPath + "/Scenario/";
 
     public static List<string[]> LoadCSV(string fileName)
     {
         List<string[]> csvData = new List<string[]>();
-        string csvFile = File.ReadAllText(path + fileName + ".csv");
+        //string csvFile = File.ReadAllText(path + fileName + ".csv");
+        TextAsset csvFile = Resources.Load("Scenario/" + fileName) as TextAsset;
+        Debug.Log(csvFile);
         //1行ずつ読み込んでくれるクラスに入れる
-        StringReader reader = new StringReader(csvFile);
+        StringReader reader = new StringReader(csvFile.text);
         //最後の行まで繰り返す
         while(reader.Peek() != -1)
         {
