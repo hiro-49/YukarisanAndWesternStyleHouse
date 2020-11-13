@@ -15,6 +15,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     //クリア済みフラグ
     public Data data;
+    //BGMManager
+    //public BGMManager bgm;
 
     Stages stageData;
     Dictionary<string, GameObject> stages;
@@ -31,8 +33,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         base.Awake();
         //data = MyDataIO.LoadData();
-        BGMManager bgm = gameObject.AddComponent<BGMManager>();
-        bgm.Init();
+        GameObject bgm = new GameObject("BGMManager");
+        bgm.AddComponent<BGMManager>();
+        BGMManager.Instance.Init();
         stageData = Resources.Load<Stages>("StagesData/Stages");
         stages = stageData.ToDictionary();
         loadingStage = stages["1-1"];

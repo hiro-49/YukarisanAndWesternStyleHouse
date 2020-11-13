@@ -11,6 +11,10 @@ public class ConversationManager : MonoBehaviour
     public GameObject speakerName;
     public GameObject talk;
 
+    public GameObject LogElement;
+    public GameObject Content;
+    public GameObject LogWindow;
+
     Text nameText;
     Text talkText;
     List<string[]> talkData;    //会話データ
@@ -26,10 +30,18 @@ public class ConversationManager : MonoBehaviour
 
     private void Awake()
     {
+        //会話ウィンドウの要素を登録
         nameText = speakerName.GetComponent<Text>();
         talkText = talk.GetComponent<Text>();
     }
 
+    private void Update()
+    {
+        //ログ表示
+        if (Input.GetKeyUp(KeyCode.L)) SwitchTheDisplayOfLogWindow();
+    }
+
+    //会話シーンの再生
     IEnumerator TalkCoroutine()
     {
         for (int i = 0; i < talkData.Count; i++)
@@ -76,6 +88,7 @@ public class ConversationManager : MonoBehaviour
                 default:
                     nameText.text = talkData[i][DispName];
                     talkText.text = talkData[i][Contents];
+                    WriteToLog(talkData[i][DispName], talkData[i][Contents]);
                     Debug.Log(talkData[i][Contents]);
                     break;
             }
@@ -86,9 +99,20 @@ public class ConversationManager : MonoBehaviour
         EndConversation();
     }
 
+    //ログウィンドウに書き込む
+    void WriteToLog(string speaker, string content)
+    {
+        GameObject logElement = Instantiate(LogElement, Content.transform);
+        logElement.transform.Find("SpeakerName").GetComponent<Text>().text = speaker;
+        logElement.transform.Find("Talk").GetComponent<Text>().text = content;
+    }
+
+    //キー入力待ち
     IEnumerator WaitSpaceOrEnterKey()
     {
-        while(!(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return)))
+        //スペースかエンターキーで次の会話へ
+        //ログウィンドウ表示中は受け付けない
+        while(!(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return)) || LogWindow.activeSelf)
         {
             yield return null;
         }
@@ -111,4 +135,9 @@ public class ConversationManager : MonoBehaviour
         yield return StartCoroutine(TalkCoroutine());
     }
 
+    //ログウィンドウの表示を切り替える
+    public void SwitchTheDisplayOfLogWindow()
+    {
+        LogWindow.SetActive(!LogWindow.activeSelf);
+    }
 }
